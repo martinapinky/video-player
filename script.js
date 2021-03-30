@@ -13,12 +13,12 @@ const fullScreenBtn = document.querySelector('.fullscreen');
 
 // Play & Pause ----------------------------------- //
 
-function showPlayIcon() {
+const showPlayIcon = () => {
     playBtn.classList.replace('fa-pause', 'fa-play');
     playBtn.setAttribute('title', 'Play');
 }
 
-function togglePlay() {
+const togglePlay = () => {
     if (video.paused) {
         video.play();
         playBtn.classList.replace('fa-play', 'fa-pause');
@@ -35,7 +35,7 @@ video.addEventListener('ended', showPlayIcon);
 // Progress Bar ---------------------------------- //
 
 // Calculate display time format
-function displayTime(time) {
+const displayTime = (time) => {
     const minutes = Math.floor(time / 60);
     let seconds = Math.floor(time % 60);
     seconds = seconds > 9 ? seconds : `0${seconds}`;
@@ -43,14 +43,14 @@ function displayTime(time) {
 }
 
 // Update progress bar as video plays
-function updateProgress() {
+const updateProgress = () => {
     progressBar.style.width = `${(video.currentTime / video.duration) * 100}%`;
     currentTime.textContent = `${displayTime(video.currentTime)} /`;
     duration.textContent = `${displayTime(video.duration)}`;
 }
 
 // Click to seek within video
-function setProgress(e) {
+const setProgress = (e) => {
     const newTime = e.offsetX / progressRange.offsetWidth;
     progressBar.style.width = `${newTime * 100}%`;
     video.currentTime = newTime * video.duration;
@@ -61,7 +61,7 @@ function setProgress(e) {
 let lastVolume = 1;
 
 // Volume Bar
-function changeVolume(e) {
+const changeVolume = (e) => {
     let volume = e.offsetX / volumeRange.offsetWidth;
     // Rounding voulume up or down
     if (volume < 0.1) {
@@ -85,7 +85,7 @@ function changeVolume(e) {
 }
 
 // Mute/UnMute
-function toggleMute() {
+const toggleMute = () => {
     volumeIcon.className = '';
     if (video.volume) {
         lastVolume = video.volume;
@@ -103,14 +103,14 @@ function toggleMute() {
 
 // Change Playback Speed -------------------- //
 
-function changeSpeed() {
+const changeSpeed = () => {
     video.playbackRate = speed.value;
 }
 
 // Fullscreen ------------------------------- //
 
 /* View in fullscreen */
-function openFullscreen(elem) {
+const openFullscreen = (elem) => {
     if (elem.requestFullscreen) {
         elem.requestFullscreen();
     } else if (elem.webkitRequestFullscreen) { /* Safari */
@@ -122,7 +122,7 @@ function openFullscreen(elem) {
 }
 
 /* Close fullscreen */
-function closeFullscreen() {
+const closeFullscreen = () => {
     if (document.exitFullscreen) {
         document.exitFullscreen();
     } else if (document.webkitExitFullscreen) { /* Safari */
@@ -136,7 +136,7 @@ function closeFullscreen() {
 let fullscreen = false;
 
 //   Toggle Fullscreen
-function toggleFullscreen() {
+const toggleFullscreen = () => {
     !fullscreen ? openFullscreen(player) : closeFullscreen();
     fullscreen = !fullscreen;
 }
